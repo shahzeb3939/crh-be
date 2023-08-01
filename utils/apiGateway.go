@@ -18,8 +18,15 @@ func ResponseObject(status int, msg string) (events.APIGatewayProxyResponse, err
 		return events.APIGatewayProxyResponse{}, err
 	}
 
+	headers := map[string]string{
+		"Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+		"Access-Control-Allow-Methods": "*",
+		"Access-Control-Allow-Origin":  "*",
+	}
+
 	return events.APIGatewayProxyResponse{
 		StatusCode: status,
+		Headers:    headers,
 		Body:       string(responseBodyByteArray),
 	}, nil
 }
