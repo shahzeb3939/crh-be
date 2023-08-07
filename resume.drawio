@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-08-07T05:08:52.844Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="DSgVm8bjg9B_VMzGSG-E" version="21.6.6" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-07T05:11:48.260Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="Rwxuq7N9jMJJYxHv38Dj" version="21.6.6" type="github">
   <diagram name="Page-1" id="ng1gLMauQu2KCJSVmks3">
     <mxGraphModel dx="1244" dy="723" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -49,7 +49,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="KwKKE5bNN2w_u_pZAeZ2-8" value="Amazon DynamoDB" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#ffffff;fillColor=#232F3E;dashed=0;verticalLabelPosition=middle;verticalAlign=bottom;align=center;html=1;whiteSpace=wrap;fontSize=10;fontStyle=1;spacing=3;shape=mxgraph.aws4.productIcon;prIcon=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
-          <mxGeometry x="730" y="575.5" width="80" height="110" as="geometry" />
+          <mxGeometry x="385" y="575.5" width="80" height="110" as="geometry" />
         </mxCell>
         <mxCell id="KwKKE5bNN2w_u_pZAeZ2-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="KwKKE5bNN2w_u_pZAeZ2-9" target="KwKKE5bNN2w_u_pZAeZ2-10">
           <mxGeometry relative="1" as="geometry" />
@@ -78,8 +78,8 @@
         <mxCell id="KwKKE5bNN2w_u_pZAeZ2-34" value="Lambda Function" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=90;" vertex="1" parent="1">
           <mxGeometry x="620" y="478" width="120" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="KwKKE5bNN2w_u_pZAeZ2-35" value="IAM" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=-90;" vertex="1" parent="1">
-          <mxGeometry x="550" y="615.5" width="40" height="30" as="geometry" />
+        <mxCell id="KwKKE5bNN2w_u_pZAeZ2-35" value="IAM" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;rotation=90;" vertex="1" parent="1">
+          <mxGeometry x="650" y="610" width="40" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
