@@ -16,12 +16,41 @@ import (
 )
 
 func GetCount(ddb *dynamodb.Client) (events.APIGatewayProxyResponse, error) {
-
 	key := map[string]types.AttributeValue{
 		"PK": &types.AttributeValueMemberS{
 			Value: "COUNT",
 		},
 	}
+
+	getItemInput := &dynamodb.GetItemInput{
+		TableName: aws.String("crh"),
+		Key:       key,
+	}
+
+	result, err := ddb.GetItem(context.Background(), getItemInput)
+	if err != nil {
+		log.Println("Error getting item:", err)
+		return events.APIGatewayProxyResponse{}, err
+	}
+
+	if len(result.Item) == 0 {
+		_, err = ddb.PutItem(context.Background(), &dynamodb.PutItemInput{
+			TableName: aws.String("crh"),
+			Item: map[string]types.AttributeValue{
+				"PK": &types.AttributeValueMemberS{
+					Value: "COUNT",
+				},
+				"count": &types.AttributeValueMemberN{
+					Value: "0",
+				},
+			},
+		})
+		if err != nil {
+			log.Println("Error creating item:", err)
+			return events.APIGatewayProxyResponse{}, err
+		}
+	}
+
 	updateExpression := "SET #c = #c + :incr"
 	expressionAttributeNames := map[string]string{"#c": "count"}
 	expressionAttributeValues := map[string]types.AttributeValue{
@@ -30,7 +59,7 @@ func GetCount(ddb *dynamodb.Client) (events.APIGatewayProxyResponse, error) {
 		},
 	}
 
-	_, err := ddb.UpdateItem(context.Background(), &dynamodb.UpdateItemInput{
+	_, err = ddb.UpdateItem(context.Background(), &dynamodb.UpdateItemInput{
 		TableName:                 aws.String("crh"),
 		Key:                       key,
 		UpdateExpression:          &updateExpression,
@@ -55,7 +84,7 @@ func GetCount(ddb *dynamodb.Client) (events.APIGatewayProxyResponse, error) {
 		},
 	}
 
-	result, err := ddb.GetItem(context.Background(), input)
+	result, err = ddb.GetItem(context.Background(), input)
 	if err != nil {
 		log.Println("Error getting item:", err)
 		return events.APIGatewayProxyResponse{}, err
@@ -71,7 +100,6 @@ func GetCount(ddb *dynamodb.Client) (events.APIGatewayProxyResponse, error) {
 	}
 
 	return utils.ResponseObject(http.StatusOK, fmt.Sprint(countValue))
-
 }
 
 func GetTables(ddb *dynamodb.Client) (events.APIGatewayProxyResponse, error) {
