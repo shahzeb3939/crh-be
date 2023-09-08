@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -12,6 +14,7 @@ import (
 )
 
 var ddb *dynamodb.Client
+var dynamodbTable string
 
 func init() {
 	cfg, err := config.LoadDefaultConfig(context.Background())
@@ -21,6 +24,14 @@ func init() {
 	}
 
 	ddb = dynamodb.NewFromConfig(cfg)
+
+	dynamodbTable = os.Getenv("dynamodbTable")
+
+	if dynamodbTable == "" {
+		log.Fatal("dynamodbTable environment variable is not set")
+	}
+
+	fmt.Println(dynamodbTable)
 }
 
 func main() {
@@ -28,5 +39,5 @@ func main() {
 }
 
 func handler(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	return handlers.GetCount(ddb)
+	return handlers.GetCount(ddb, dynamodbTable)
 }

@@ -15,7 +15,10 @@ import (
 	"github.com/shahzeb3939/crh-be/utils"
 )
 
-func GetCount(ddb *dynamodb.Client) (events.APIGatewayProxyResponse, error) {
+func GetCount(ddb *dynamodb.Client, dynamodbTable string) (events.APIGatewayProxyResponse, error) {
+
+	fmt.Println(dynamodbTable, "2hehe")
+
 	key := map[string]types.AttributeValue{
 		"PK": &types.AttributeValueMemberS{
 			Value: "COUNT",
@@ -23,7 +26,7 @@ func GetCount(ddb *dynamodb.Client) (events.APIGatewayProxyResponse, error) {
 	}
 
 	getItemInput := &dynamodb.GetItemInput{
-		TableName: aws.String("crh"),
+		TableName: aws.String(dynamodbTable),
 		Key:       key,
 	}
 
@@ -35,7 +38,7 @@ func GetCount(ddb *dynamodb.Client) (events.APIGatewayProxyResponse, error) {
 
 	if len(result.Item) == 0 {
 		_, err = ddb.PutItem(context.Background(), &dynamodb.PutItemInput{
-			TableName: aws.String("crh"),
+			TableName: aws.String(dynamodbTable),
 			Item: map[string]types.AttributeValue{
 				"PK": &types.AttributeValueMemberS{
 					Value: "COUNT",
@@ -60,7 +63,7 @@ func GetCount(ddb *dynamodb.Client) (events.APIGatewayProxyResponse, error) {
 	}
 
 	_, err = ddb.UpdateItem(context.Background(), &dynamodb.UpdateItemInput{
-		TableName:                 aws.String("crh"),
+		TableName:                 aws.String(dynamodbTable),
 		Key:                       key,
 		UpdateExpression:          &updateExpression,
 		ExpressionAttributeNames:  expressionAttributeNames,
@@ -72,7 +75,7 @@ func GetCount(ddb *dynamodb.Client) (events.APIGatewayProxyResponse, error) {
 	}
 
 	input := &dynamodb.GetItemInput{
-		TableName: aws.String("crh"),
+		TableName: aws.String(dynamodbTable),
 		Key: map[string]types.AttributeValue{
 			"PK": &types.AttributeValueMemberS{
 				Value: "COUNT",
@@ -98,6 +101,8 @@ func GetCount(ddb *dynamodb.Client) (events.APIGatewayProxyResponse, error) {
 			return events.APIGatewayProxyResponse{}, err
 		}
 	}
+
+	fmt.Println(dynamodbTable, "3hehe")
 
 	return utils.ResponseObject(http.StatusOK, fmt.Sprint(countValue))
 }
