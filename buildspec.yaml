@@ -10,11 +10,9 @@ phases:
       - GOOS=linux GOARCH=amd64 go build main.go
       - zip main.zip main
 
+  post_build:
+    commands:
+      - aws s3api create-bucket --bucket crh-build-codebuild --region ap-south-1
+      - aws s3 cp main.zip s3://crh-build-codebuild/main.zip
 artifacts:
   files: main.zip
-
-post_build:
-  commands:
-    - aws s3api create-bucket --bucket crh-build-codebuild --region ap-south-1
-    - aws s3 cp main.zip s3://crh-build-codebuild/main.zip
-
